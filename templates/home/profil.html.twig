@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+{% block body %}
+	<div class="container">
+		<div class="form-container">
+			<div class="form">
+				<h1>Votre compte</h1>
+				<p>Votre nom:
+					{{utilisateur.nom}}</p>
+				<p>Votre prénom:
+					{{utilisateur.prenom}}</p>
+				<p>Votre adresse mail:
+					{{utilisateur.email}}</p>
+				<div class="loginAncre">
+					<a href="{{ path("eventbyuser") }}">Mes événements</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

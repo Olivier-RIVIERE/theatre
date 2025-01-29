@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les événements{% endblock %}
+
+{% block body %}
+    <div class="container_evenement">
+        <h1>Les événements en cours</h1>
+        {% for evenement in evenements %}
+            <div class="card" style="width: 50rem;">
+                <img src="{{ asset('uploads/images/' ~ evenement.image) }}" class="card-img-top" alt="{{ evenement.titre }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ evenement.titre }}</h5>
+                    <p class="card-text">{{ evenement.description }}</p>
+                    <p class="card-text">Nombre de place : {{ evenement.nbPlace }}</p>
+                    <p class="card-text">Prix : {{ evenement.prix }}€</p>
+                </div>
+                <div class="card-body">
+                    <a class="ancre" href="{{ path('app_evenement_show', {'id': evenement.id}) }}">Voir</a>
+                    <a class="ancre" href="{{ path('app_evenement_edit', {'id': evenement.id}) }}">Modifier</a>
+                </div>
+            </div>
+        {% else %}
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-text">No records found</p>
+                </div>
+            </div>
+        {% endfor %}
+        <a href="{{ path('app_evenement_new') }}" class="loginAncre">Créer un nouveau événement</a>
+    </div>
+{% endblock %}

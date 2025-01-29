@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil
+{% endblock %}
+
+{% block body %}
+	<div class="home">
+		<div id="carouselExampleIndicators" class="carousel slide">
+			<div class="carousel-indicators">
+				<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+				<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+				<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+			</div>
+			<div class="carousel-inner">
+				<div class="carousel-item active">
+					<img src="{{ asset('img/carousel1.jpg') }}" class="d-block w-100" alt="Premier slide">
+				</div>
+				<div class="carousel-item">
+					<img src="{{ asset('img/carousel2.jpg') }}" class="d-block w-100" alt="Deuxième slide">
+				</div>
+				<div class="carousel-item">
+					<img src="{{ asset('img/carousel3.jpg') }}" class="d-block w-100" alt="Troisième slide">
+				</div>
+			</div>
+			<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Previous</span>
+			</button>
+			<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Next</span>
+			</button>
+		</div>
+	</div>
+	<section class="gift-cards">
+		<h2>Nos cartes cadeaux</h2>
+		<div class="card-container">
+			<div class="gift-card">
+				<img src="{{ asset('img/carte20.png') }}" alt="Carte cadeau 20€" class="gift-card-img">
+				<h3>Carte cadeau 20€</h3>
+				<p>Offrez une carte cadeau de 20€ pour nos produits</p>
+			</div>
+			<div class="gift-card">
+				<img src="{{ asset('img/carte50.png') }}" alt="Carte cadeau 50€" class="gift-card-img">
+				<h3>Carte cadeau 50€</h3>
+				<p>Une carte cadeau de 50€ pour encore plus de choix</p>
+			</div>
+			<div class="gift-card">
+				<img src="{{ asset('img/carte100.png') }}" alt="Carte cadeau 100€" class="gift-card-img">
+				<h3>Carte cadeau 100€</h3>
+				<p>La carte cadeau de luxe à offrir</p>
+			</div>
+		</div>
+	</section>
+  <div id="map" class="map"></div>
+
+
+{% endblock %}

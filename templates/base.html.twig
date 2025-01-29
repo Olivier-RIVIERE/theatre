@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Welcome!
+			{% endblock %}
+		</title>
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+		{% endblock %}
+
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+		{% endblock %}
+	</head>
+	<body>
+		<header>
+			<nav class="navbar navbar-expand-lg">
+				<div class="container-fluid">
+					<a class="navbar-brand" href="#">EventResa</a>
+					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarNavDropdown">
+						<ul class="navbar-nav">
+							<li class="nav-item">
+								<a class="nav-link active" aria-current="page" href="{{ path('app_home') }}">Accueil
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="{{ path('app_evenement_index') }}">Événement</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">Contact</a>
+							</li>
+							{% if app.user %}
+								<li class="nav-item dropdown">
+									<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Mon compte</a>
+									<ul class="dropdown-menu">
+										<li>
+											<a class="dropdown-item" href="{{ path('profil') }}">Profil</a>
+										</li>
+										<li>
+											<a class="dropdown-item" href="{{ path('app_evenement_new') }}">Ajouter un événement</a>
+										</li>
+										{% if is_granted('ROLE_ADMIN') %}
+											<li>
+												<a class="dropdown-item" href="{{ path('admin') }}">Administrateur</a>
+											</li>
+										{% endif %}
+										<li>
+											<a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a>
+										</li>
+									</ul>
+								</li>
+							{% else %}
+								<li class="nav-item">
+									<a class="nav-link" href="{{ path('app_login') }}">Connection / Inscription</a>
+								</li>
+							{% endif %}
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</header>
+		<main>
+			{% block body %}{% endblock %}
+		</main>
+		{% block footer %}
+			<footer>&copy; 2025 Olivier RIVIERE</footer>
+		{% endblock %}
+	</body>
+</html>

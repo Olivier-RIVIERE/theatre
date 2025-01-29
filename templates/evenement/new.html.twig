@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Evenement
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h1>Ajouter un événement</h1>
+		<div class="form-container">
+			<div class="form">
+
+				{{ include('evenement/_form.html.twig') }}
+				<div class="loginAncre">
+					<a href="{{ path('app_evenement_index') }}">Retour à la liste</a>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+{% endblock %}
