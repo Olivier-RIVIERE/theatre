@@ -8,6 +8,7 @@ use App\Repository\EvenementRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -34,7 +35,21 @@ final class EvenementController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //   $evenement->setUser($this->getUser());  
+            //   $evenement->setUser($this->getUser()); 
+            $imageEvent = $form->get('image')->getData();
+            if($imageEvent) {
+                $newFilename = "event".uniqid().'.'.$imageEvent->guessExtension();
+                try {
+                    $imageEvent->move(
+                        $this->getParameter('img'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    $e->getMessage();
+                }
+                $evenement->setImage($newFilename);
+            }
+            $evenement->setValide(false);
             $evenement->setUser($user);
             $entityManager->persist($evenement);
             $entityManager->flush();
@@ -57,11 +72,19 @@ final class EvenementController extends AbstractController
         ]);
     }
 
-
+    // #[Route('/reservation/{id}', name: 'reservation')]
     #[Route('/{id}', name: 'app_evenement_show', methods: ['GET'])]
     public function show(Evenement $evenement): Response
     {
         return $this->render('evenement/show.html.twig', [
+            'evenement' => $evenement,
+        ]);
+    }
+
+    #[Route('/reservation/{id}', name: 'reservation')]
+    public function reservation(EvenementRepository $repo, $id): Response{
+        $evenement = $repo->find($id);
+        return $this->render('reservation/reservation.html.twig', [
             'evenement' => $evenement,
         ]);
     }

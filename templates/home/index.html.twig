@@ -52,7 +52,29 @@
 			</div>
 		</div>
 	</section>
-  <div id="map" class="map"></div>
+	<section class="gift-cards">
+		<h2>Nos événements</h2>
+		<div class="card-container">
+			{% for eventsvalide in eventsvalides %}
+				<div class="gift-card">
+					{% if eventsvalide.image is null %}
+						<img src="{{ asset('img/theatre.jpg') }}" alt="Image théâtre" class="gift-card-img">
+					{% else %}
+						<img src="{{ asset('uploads/images/' ~ eventsvalide.image) }}" alt="{{ eventsvalide.titre }}" class="gift-card-img">
+					{% endif %}
+					<h3>{{ eventsvalide.titre }}</h3>
+					<p>{{ eventsvalide.description|slice('0','80')~ '...' }}</p>
+					<p>Prix: {{ eventsvalide.prix }}€</p>
+					<a href="{{ path('app_evenement_show',{'id':eventsvalide.id}) }}">En savoir plus</a>
+					<a href="{{ path('reservation',{'id':eventsvalide.id}) }}">Réserver</a>
+				</div>
+			{% endfor %}
+		</div>
+		<div class="navigation">
+			{{ knp_pagination_render(eventsvalides) }}
+		</div>
+	</section>
+	<div id="map" class="map"></div>
 
 
 {% endblock %}

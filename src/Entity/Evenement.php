@@ -38,6 +38,9 @@ class Evenement
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
+    #[ORM\Column]
+    private ?bool $valide = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -135,6 +138,18 @@ class Evenement
     public function setImage(?string $image): static
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function isValide(): ?bool
+    {
+        return $this->valide;
+    }
+
+    public function setValide(bool $valide): static
+    {
+        $this->valide = $valide;
 
         return $this;
     }

@@ -41,4 +41,13 @@ class EvenementRepository extends ServiceEntityRepository
         ;
 
     }
+
+    public function findValidEvent($value){
+        return $this->createQueryBuilder('e')
+        ->andWhere('e.valide = :val')
+        ->setParameter('val', $value)
+        ->getQuery()
+        ->getResult()
+        ;
+    }
 }

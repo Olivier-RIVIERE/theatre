@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Réservation
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<div class="card mb-3">
+			<div class="card-body">
+				{% if evenement.image is null %}
+					<img src="{{ asset('img/theatre.jpg') }}" alt="Image théâtre" class="gift-card-img">
+				{% else %}
+					<img src="{{ asset('img/' ~ evenement.image) }}" alt="{{ evenement.titre }}" class="img-fluid">
+				{% endif %}
+				<h3>{{ evenement.titre }}</h3>
+				<p>Prix de la place:
+					{{ evenement.prix }}€</p>
+				<label for="nbplace">Veuillez choisir le nombre de place:</label>
+				<input type="number" id="nbplace" min="1">
+				<p>Total:
+					<span id="total"></span>
+				</p>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		const prixUnique = {{ evenement.prix }};
+const nbplace = document.getElementById('nbplace');
+const total = document.getElementById('total');
+
+function calculerPrixTotal() {
+const nbPlaces = parseInt(nbplace.value); 
+if (! nbPlaces || nbPlaces < 1) { 
+total.textContent = '';
+} else { 
+const prixTotal = nbPlaces * prixUnique;
+total.textContent = `${prixTotal}€`;
+}
+}
+
+// Mise à jour dynamique
+nbplace.addEventListener('input', calculerPrixTotal);
+	</script>
+
+{% endblock %}
