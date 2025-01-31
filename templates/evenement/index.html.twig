@@ -7,11 +7,11 @@
 	<div class="container_evenement">
 		<h1>Les événements en cours</h1>
 		{% for evenement in evenements %}
-			<div class="card">
+			<div id="card-evenement">
 				{% if evenement.image is null %}
-					<img src="{{ asset('img/theatre.jpg') }}" alt="Image théâtre" class="gift-card-img">
+					<img src="{{ asset('img/theatre.jpg') }}" alt="Image théâtre">
 				{% else %}
-					<img src="{{ asset('uploads/images/' ~ evenement.image) }}" alt="{{ evenement.titre }}" class="gift-card-img">
+					<img src="{{ asset('uploads/images/' ~ evenement.image) }}" alt="{{ evenement.titre }}">
 				{% endif %}
 				<div class="card-body">
 					<h5 class="card-title">{{ evenement.titre }}</h5>

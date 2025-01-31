@@ -2,7 +2,7 @@
 
 # 🎭 Theatre ~ Olivier RIVIERE
 
-Welcome to the Theatre project! 🎟️ An interactive website for managing events, featuring a login system, an image carousel, and a map with OpenStreetMap to display event locations. This project was built with Symfony, Bootstrap, and MySQL.
+Welcome to the Theatre project! 🎟️ An interactive website for managing events, featuring a login system, an image carousel, a map with OpenStreetMap to display event locations, and Stripe payment integration to securely handle ticket purchases. This project was built with Symfony, Bootstrap, and MySQL.
 
 ## 🌟 Features
 
@@ -10,6 +10,7 @@ Welcome to the Theatre project! 🎟️ An interactive website for managing even
 - **📅 Event Management**: Add, edit, and display events using a MySQL database.
 - **🎡 Image Carousel**: A carousel to visually showcase event images
 - **🗺️ Interactive Map**: OpenStreetMap integration with clickable markers and route directions for event locations.
+- **💳 Stripe Payment Integration**: Secure payment processing for event reservations using Stripe.
 - **📱 Responsive Design**: Designed to provide a smooth experience on both desktop and mobile.
 
 ## 🚀 Technologies Used
@@ -20,6 +21,7 @@ Welcome to the Theatre project! 🎟️ An interactive website for managing even
 - 🗺️ **OpenStreetMap with Leaflet**: Interactive map with clickable markers and route directions.
 - 🎠 **Image Carousel**: Visual component to display event images.
 - 🔐 **Authentication**: User authentication and session management with Symfony.
+- 💳 **Stripe**: Payment gateway integration for processing ticket purchases.
 
 ## 📝 License
 

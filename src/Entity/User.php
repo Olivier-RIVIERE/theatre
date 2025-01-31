@@ -57,9 +57,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Evenement::class, mappedBy: 'user')]
     private Collection $evenements;
 
+    /**
+     * @var Collection<int, Paiement>
+     */
+    #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Paiement::class)]
+    private Collection $paiements;
+
     public function __construct()
     {
         $this->evenements = new ArrayCollection();
+        $this->paiements = new ArrayCollection();  // Initialise la collection de paiements
     }
 
     public function getId(): ?int
@@ -227,4 +234,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * @return Collection<int, Paiement>
+     */
+    public function getPaiements(): Collection
+    {
+        return $this->paiements;
+    }
+
+    public function addPaiement(Paiement $paiement): static
+    {
+        if (!$this->paiements->contains($paiement)) {
+            $this->paiements->add($paiement);
+            $paiement->setUtilisateur($this);  // Associe l'utilisateur au paiement
+        }
+
+        return $this;
+    }
+
+    public function removePaiement(Paiement $paiement): static
+    {
+        if ($this->paiements->removeElement($paiement)) {
+            // Annule l'association si nécessaire
+            if ($paiement->getUtilisateur() === $this) {
+                $paiement->setUtilisateur(null);
+            }
+        }
+
+        return $this;
+    }
 }

@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Paiement Réussi{% endblock %}
+
+{% block body %}
+<div class="container text-center">
+    <h1 class="text-success">Paiement Réussi</h1>
+    <p>Votre réservation pour l'événement <strong>{{ evenement.titre }}</strong> a été confirmée !</p>
+    <p>Merci pour votre paiement.</p>
+    <a href="{{ path('app_home') }}" class="form-submit-btn">Retour à l'accueil</a>
+</div>
+{% endblock %}

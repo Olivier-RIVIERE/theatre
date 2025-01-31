@@ -63,14 +63,14 @@ final class EvenementController extends AbstractController
         ]);
     }
 
-    #[Route('/eventbyuser', name: 'eventbyuser')]
-    public function eventbyuser(EvenementRepository $repo, UserInterface $user)
-    {
-        $events = $repo->findeventbyuser($user);
-        return $this->render('home/profil.html.twig', [
-            "evenements" => $events
-        ]);
-    }
+    // #[Route('/eventbyuser', name: 'eventbyuser')]
+    // public function eventbyuser(EvenementRepository $repo, UserInterface $user)
+    // {
+    //     $events = $repo->findeventbyuser($user);
+    //     return $this->render('home/profil.html.twig', [
+    //         "evenements" => $events
+    //     ]);
+    // }
 
     // #[Route('/reservation/{id}', name: 'reservation')]
     #[Route('/{id}', name: 'app_evenement_show', methods: ['GET'])]

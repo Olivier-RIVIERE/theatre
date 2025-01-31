@@ -1,7 +1,7 @@
 import 'bootstrap';
-import './styles/app.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'leaflet/dist/leaflet.css';
+import './styles/app.css';
 
 import L from 'leaflet';
 

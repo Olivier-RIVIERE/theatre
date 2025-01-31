@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EvenementRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -40,6 +42,15 @@ class Evenement
 
     #[ORM\Column]
     private ?bool $valide = null;
+
+    // Relation OneToMany avec Paiement
+    #[ORM\OneToMany(mappedBy: 'evenement', targetEntity: Paiement::class)]
+    private Collection $paiements;
+
+    public function __construct()
+    {
+        $this->paiements = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -150,6 +161,35 @@ class Evenement
     public function setValide(bool $valide): static
     {
         $this->valide = $valide;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Paiement>
+     */
+    public function getPaiements(): Collection
+    {
+        return $this->paiements;
+    }
+
+    public function addPaiement(Paiement $paiement): static
+    {
+        if (!$this->paiements->contains($paiement)) {
+            $this->paiements->add($paiement);
+            $paiement->setEvenement($this); 
+        }
+
+        return $this;
+    }
+
+    public function removePaiement(Paiement $paiement): static
+    {
+        if ($this->paiements->removeElement($paiement)) {
+            if ($paiement->getEvenement() === $this) {
+                $paiement->setEvenement(null);
+            }
+        }
 
         return $this;
     }

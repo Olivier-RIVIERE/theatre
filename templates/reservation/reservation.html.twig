@@ -13,34 +13,66 @@
 					<img src="{{ asset('img/' ~ evenement.image) }}" alt="{{ evenement.titre }}" class="img-fluid">
 				{% endif %}
 				<h3>{{ evenement.titre }}</h3>
-				<p>Prix de la place:
+				<p>Prix de la place :
 					{{ evenement.prix }}€</p>
-				<label for="nbplace">Veuillez choisir le nombre de place:</label>
-				<input type="number" id="nbplace" min="1">
-				<p>Total:
-					<span id="total"></span>
+				<label for="nbplace">Veuillez choisir le nombre de places :</label>
+				<input type="number" id="nbplace" min="1" value="1">
+				<p>Total :
+					<span id="total" class="font-weight-bold">{{ evenement.prix }}€</span>
 				</p>
+				<button id="payer" class="form-submit-btn">Payer</button>
 			</div>
 		</div>
 	</div>
 
+	<script src="https://js.stripe.com/v3/"></script>
 	<script>
 		const prixUnique = {{ evenement.prix }};
 const nbplace = document.getElementById('nbplace');
 const total = document.getElementById('total');
+const payerButton = document.getElementById('payer');
+const stripe = Stripe('pk_test_51QnJnZQrdTEfy8JvWLxnIK2i2EeSkbXHt969om7kGnUQ7w0u5egEjGaxNho55ZcWRiFFFFywPMfDa0i0ZHGPpp8e00NTmb82Ob');
 
 function calculerPrixTotal() {
-const nbPlaces = parseInt(nbplace.value); 
-if (! nbPlaces || nbPlaces < 1) { 
-total.textContent = '';
-} else { 
+const nbPlaces = parseInt(nbplace.value);
+
+if (isNaN(nbPlaces) || nbPlaces < 1) {
+total.textContent = 'Veuillez entrer un nombre valide.';
+return;
+}
+
 const prixTotal = nbPlaces * prixUnique;
 total.textContent = `${prixTotal}€`;
 }
+
+calculerPrixTotal();
+nbplace.addEventListener('input', calculerPrixTotal);
+
+payerButton.addEventListener('click', async () => {
+const nbPlaces = parseInt(nbplace.value);
+
+if (isNaN(nbPlaces) || nbPlaces < 1) {
+alert('Veuillez entrer un nombre valide de places.');
+return;
 }
 
-// Mise à jour dynamique
-nbplace.addEventListener('input', calculerPrixTotal);
-	</script>
+const response = await fetch(`/create-checkout-session/{{ evenement.id }}`, { // Ajout de l'ID dans l'URL
+method: 'POST',
+headers: {
+'Content-Type': 'application/json'
+},
+body: JSON.stringify(
+{quantity: nbPlaces}
+)
+});
 
+const session = await response.json();
+
+if (session.id) {
+stripe.redirectToCheckout({sessionId: session.id});
+} else {
+alert('Erreur lors de la création de la session de paiement.');
+}
+});
+	</script>
 {% endblock %}

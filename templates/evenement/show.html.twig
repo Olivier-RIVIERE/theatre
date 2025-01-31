@@ -4,9 +4,13 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container show-container">
-		<div class="form-container showEvenement">
-			<img src="{{ asset('uploads/images/' ~ evenement.image) }}" class="card-img-top" alt="{{ evenement.titre }}">
+	<div class="container">
+		<div class="showEvenement">
+			{% if evenement.image is null %}
+				<img src="{{ asset('img/theatre.jpg') }}" alt="Image théâtre">
+			{% else %}
+				<img src="{{ asset('uploads/images/' ~ evenement.image) }}" alt="{{ evenement.titre }}">
+			{% endif %}
 			<h1>{{ evenement.titre }}</h1>
 			<p>{{ evenement.description }}</p>
 			<p>Nombre de place:

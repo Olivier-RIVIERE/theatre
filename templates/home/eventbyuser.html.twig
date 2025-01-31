@@ -1,0 +1,29 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Mes événements
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<div class="showEvenement">
+			<h1>Mes événements</h1>
+			{% if evenements is empty %}
+				<p>Aucun événement trouvé.</p>
+			{% else %}
+				<ul>
+					{% for evenement in evenements %}
+						<li>
+							<h2>{{ evenement.titre }}</h2>
+							{% if evenement.image is null %}
+								<img src="{{ asset('img/theatre.jpg') }}" alt="Image théâtre">
+							{% else %}
+								<img src="{{ asset('uploads/images/' ~ evenement.image) }}" alt="{{ evenement.titre }}">
+							{% endif %}
+							<p>{{ evenement.description }}</p>
+						</li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}

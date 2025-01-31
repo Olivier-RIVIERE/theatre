@@ -25,15 +25,15 @@ class EvenementCrudController extends AbstractCrudController
         return [
             BooleanField::new('valide'),
             TextField::new('titre'),
-            TextEditorField::new('description'),
+            TextField::new('description'),
             NumberField::new('prix'),
             NumberField::new('nbPlace'),
             DateTimeField::new('createdAt'),
             AssociationField::new('category', 'nom_category'),
-            ImageField::new('image') // Ajouter le champ image
-                ->setBasePath('/uploads/images') // Chemin où les images seront accessibles dans le frontend
-                ->setUploadDir('public/uploads/images') // Répertoire où les images seront stockées
-                ->setRequired(false), // Facultatif si l'image est optionnelle
+            ImageField::new('image')
+                ->setBasePath('/uploads/images') 
+                ->setUploadDir('public/uploads/images')
+                ->setRequired(false), 
         ];
     }
 }
